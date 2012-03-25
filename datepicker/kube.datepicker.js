@@ -307,8 +307,6 @@
 			});
 			
 			this.$datepicker_table_head.append(tr);
-			
-		
 		
 			var daysCurrentMonth = this.getDaysCurrentMonth();
 			var daysPrevMonth = this.getDaysPrevMonth();
@@ -323,8 +321,7 @@
 
 			// clear grid
 			this.$datepicker_table_body.html('');
-		
-		
+				
 			// matrix
 			var y = 1, c = 1;
 			for (z = 0; z<6; z++)
@@ -340,57 +337,25 @@
 						if (dayPrev > daysPrevMonth) 
 						{
 							// current day
-							var day = { 
-								num: y, 
-								last: false, 
-								year: this.opts.current_year,
-								month: this.opts.current_month,								
-								date: this.getGridDay(this.opts.current_year, this.opts.current_month, y), 
-								select: this.checkSelectDate(this.opts.current_year, this.opts.current_month, y), 
-								today: this.checkTodayDate(this.opts.current_year, this.opts.current_month, y) 
-							}
+							var day = this.buildDay(this.opts.current_year, this.opts.current_month, y, false); 
 							y++;
 						}
 						else 
 						{
 							// prev day
-							var day = { 
-								num: dayPrev, 
-								last: true, 
-								year: this.opts.prev_year,
-								month: this.opts.prev_month,								
-								date: this.getGridDay(this.opts.prev_year, this.opts.prev_month, dayPrev), 
-								select: this.checkSelectDate(this.opts.prev_year, this.opts.prev_month, dayPrev), 
-								today: this.checkTodayDate(this.opts.prev_year, this.opts.prev_month, dayPrev) 								
-							}
+							var day = this.buildDay(this.opts.prev_year, this.opts.prev_month, dayPrev, true); 
 						}
 					}
 					else if (y > daysCurrentMonth)
 					{
 						// next day
-						var day = { 
-							num: c, 
-							last: true, 
-							year: this.opts.next_year,
-							month: this.opts.next_month,								
-							date: this.getGridDay(this.opts.next_year, this.opts.next_month, c), 
-							select: this.checkSelectDate(this.opts.next_year, this.opts.next_month, c), 
-							today: this.checkTodayDate(this.opts.next_year, this.opts.next_month, c) 							
-						}
+						var day = this.buildDay(this.opts.next_year, this.opts.next_month, c, true);
 						c++;						
 					}
 					else
 					{
 						// current day
-						var day = { 
-							num: y, 
-							last: false, 
-							year: this.opts.current_year,
-							month: this.opts.current_month,							
-							date: this.getGridDay(this.opts.current_year, this.opts.current_month, y), 
-							select: this.checkSelectDate(this.opts.current_year, this.opts.current_month, y), 
-							today: this.checkTodayDate(this.opts.current_year, this.opts.current_month, y) 
-						}
+						var day = this.buildDay(this.opts.current_year, this.opts.current_month, y, false); 
 						y++;
 					}
 										
@@ -400,6 +365,18 @@
 				this.$datepicker_table_body.append(tr);	
 			}
 				
+		},
+		buildDay: function(year, month, day, last)
+		{
+			return { 
+				num: day, 
+				last: last, 
+				year: year,
+				month: month,							
+				date: this.getGridDay(year, month, day), 
+				select: this.checkSelectDate(year, month, day), 
+				today: this.checkTodayDate(year, month, day) 
+			};
 		},
 		parseDate: function()
 		{
