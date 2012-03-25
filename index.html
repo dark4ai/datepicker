@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Datepicker</title>
+	
+	<link rel="stylesheet" type="text/css" href="css/kube.min.css" /> 	
+	<link rel="stylesheet" type="text/css" href="css/demo.css" /> 	
+	
+	
+	<script type="text/javascript" src="js/jquery-1.7.min.js"></script>	
+	<script type="text/javascript" src="datepicker/kube.datepicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="datepicker/kube.datepicker.css" /> 
+		
+
+	
+</head>
+<body>
+	<div id="page">
+
+		<h3>Поле без триггера</h3>
+		
+		<p><input id="picker_without_trigger" value="" /></p>
+		
+		<hr>
+		
+		<h3>Поле с триггером</h3>
+		
+		<p><input id="picker_with_trigger" /> <a href="" id="test_trigger">trigger</a></p>
+
+		<hr>
+		
+		<h3>Слой без триггера</h3>
+		
+		<p>
+			<span id="test_picker1" style="cursor: pointer;">11.09.2015</span>
+		</p>
+		
+		<hr>
+		
+		<h3>Слой с триггером</h3>
+
+		<p>
+			<span id="test_picker2">11.09.2020</span>  <a href="" id="test_trigger2">trigger2</a>
+		</p>
+		
+		<hr>
+		
+		<h3>Только триггер</h3>
+		
+		<p><a href="" id="test_trigger3">trigger3</a></p>
+		
+		<hr>
+		
+		<h3>Embed</h3>
+		
+		<div style="overflow: hidden; padding-bottom: 20px;">
+			<div id="test_embed1" style="float: left; margin-right: 30px;"></div>
+			<div id="test_embed2" style="float: left; margin-right: 30px;"></div>
+			<div id="test_embed3" style="float: left; margin-right: 30px;"></div>
+		</div>
+		<hr>
+
+		
+		<h3>Коррекция позиционирования</h3>
+		
+		<div style="overflow: hidden;"><input id="test_picker3" style="float: right;" /></div>
+		
+		<hr>
+		
+		<h3>Американский формат</h3>
+		
+		<p><input id="picker_without_trigger_us" value="10/23/2007" /></p>
+		
+		<hr>
+		
+		
+		<h3>Select Split</h3>
+		
+		<p>
+			<input size="2" id="day" /> 
+			
+			<select id="month">
+				<option value="0">--</option>
+				
+				<option value="1">January</option>
+				<option value="2">February</option>
+				<option value="3">March</option>
+				<option value="4">April</option>
+				<option value="5">May</option>
+				<option value="6">June</option>
+				<option value="7">July</option>																								
+				<option value="8">August</option>
+				<option value="9">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>																				
+			</select>
+			
+			<input id="year" size="6" />
+			
+			<a href="" id="test_trigger4">trigger4</a>
+		
+		</p>
+		
+		<hr>	
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+	
+		<script type="text/javascript">
+			$(function()
+			{
+				$('#picker_without_trigger, #test_picker3').datepicker();
+				$('#picker_with_trigger').datepicker({ trigger: '#test_trigger' });				
+
+				$('#picker_without_trigger_us').datepicker({ format: 'mm/dd/yy' });
+
+				$('#test_picker1').datepicker();
+				$('#test_picker2').datepicker({ trigger: '#test_trigger2', theme: 'dark' });
+				
+				$('#test_trigger3').datepicker({ onlytrigger: true, callback: datepickerCallback });					
+
+				$('#test_embed1').datepicker({ embed: true, callback: datepickerCallback });
+				$('#test_embed2').datepicker({ embed: true, callback: datepickerCallback, theme: 'simple' });
+				$('#test_embed3').datepicker({ embed: true, callback: datepickerCallback, theme: 'dark' });								
+
+
+				$('#test_trigger4').datepicker({ setDate: getSplitDate, onlytrigger: true, callback: splitCallback, theme: 'simple' });					
+	
+			});
+			
+			function getSplitDate()
+			{
+				if ($('#day').val() != '' && $('#month').val() != '0' && $('#year').val() != '')
+				{
+					return $('#day').val() + '.' + $('#month').val() + '.' + $('#year').val();
+				}
+				else return false;
+			}
+
+			function splitCallback(e, date, year, month, day)
+			{
+				$('#year').val(year);
+				$('#month').val(new Number(month).toString());				
+				$('#day').val(day);
+			}
+			
+			function datepickerCallback(e, date)
+			{			
+				alert(date);
+			}
+		</script>
+
+	
+	
+	</div>		
+</body>
+</html>
+
