@@ -1,5 +1,5 @@
 /*
-	Plugin Datepicker v2.0.2
+	Plugin Datepicker v2.0.3
 	http://imperavi.com/
  
 	Copyright 2012, Imperavi Ltd.
